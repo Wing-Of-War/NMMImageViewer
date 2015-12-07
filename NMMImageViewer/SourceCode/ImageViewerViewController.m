@@ -41,7 +41,7 @@
 - (void)setupTestData {
     NSMutableArray *array = [NSMutableArray array];
     for (int i = 0 ; i < 3 ; i++) {
-        [array addObject:[NSString stringWithFormat:@"ppt%d.png", i+1]];
+        [array addObject:[NSString stringWithFormat:@"TallImage%d.jpg", i+1]];
     }
     self.imageLinks = [NSArray arrayWithArray:array];
 }
