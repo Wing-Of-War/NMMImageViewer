@@ -25,13 +25,16 @@
 @property (nonatomic, assign) CGFloat currentScrollViewWidth;
 @property (nonatomic, assign) CGFloat currentScrollViewHeight;
 
+@property (nonatomic, assign) TestType type;
+
 @end
 
 @implementation ImageViewerViewController
 
 
-+ (void)showInViewController:(UIViewController *)viewCon {
++ (void)showInViewController:(UIViewController *)viewCon testType:(TestType)type{
     ImageViewerViewController *viewrVC = [[ImageViewerViewController alloc]init];
+    viewrVC.type = type;
     [viewCon presentViewController:viewrVC animated:YES completion:^{
         
     }];
@@ -40,8 +43,15 @@
 
 - (void)setupTestData {
     NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0 ; i < 3 ; i++) {
-        [array addObject:[NSString stringWithFormat:@"TallImage%d.jpg", i+1]];
+    
+    if (self.type == TestType_Tall) {
+        for (int i = 0 ; i < 3 ; i++) {
+            [array addObject:[NSString stringWithFormat:@"TallImage%d.jpg", i+1]];
+        }
+    } else {
+        for (int i = 0 ; i < 3 ; i++) {
+            [array addObject:[NSString stringWithFormat:@"SmallImage%d.png", i+1]];
+        }
     }
     self.imageLinks = [NSArray arrayWithArray:array];
 }
@@ -76,47 +86,6 @@
     [self redrawScrollView];
 }
 
-- (void)redrawScrollView {
-    self.mainScrollView.frame = self.view.frame;
-    NSInteger imageCount = self.imageViews.count;
-    CGFloat width = CGRectGetWidth(self.view.frame);
-    CGFloat height = CGRectGetHeight(self.view.frame);
-
-    self.currentScrollViewHeight = height;
-    self.currentScrollViewWidth = width;
-    
-    self.mainScrollView.contentSize = CGSizeMake(width * imageCount, height );
-    for (int i = 0; i < imageCount; i++) {
-        [self resizeImageView:i];
-    }
-    self.mainScrollView.contentOffset = CGPointMake(self.currentPage * self.currentScrollViewWidth, 0);
-}
-
-
-- (void)resizeImageView:(NSInteger)index {
-    UIScrollView *sc = self.scrollViews[index];
-    sc.frame = CGRectMake(self.currentScrollViewWidth * index, 0, self.currentScrollViewWidth, self.currentScrollViewHeight);
-    UIImageView *iv = self.imageViews[index];
-    iv.transform = CGAffineTransformIdentity;
-    
-    float scaleX = iv.image.size.width/self.currentScrollViewWidth;
-    float scaleY = iv.image.size.height/self.currentScrollViewHeight;
-    if (scaleX > scaleY) {
-        sc.contentSize = CGSizeMake( iv.image.size.width/scaleX , iv.image.size.height / scaleX);
-        iv.frame = CGRectMake(0, 0, iv.image.size.width/scaleX, iv.image.size.height / scaleX);
-
-    } else {
-        sc.contentSize = CGSizeMake( iv.image.size.width/scaleY , iv.image.size.height / scaleY);
-        iv.frame = CGRectMake(0, 0, iv.image.size.width/scaleY, iv.image.size.height / scaleY);
-
-    }
-    iv.center = self.mainScrollView.center;
-    for (id u in sc.subviews) {
-        if (u != iv) {
-            [u removeFromSuperview];
-        }
-    }
-}
 
 
 - (void)viewWillLayoutSubviews {
@@ -138,7 +107,6 @@
     [super viewDidLoad];
     
     [self setupTestData];
-
     [self setupMainScrollView];
     [self setupImageView];
     [self configureView];
@@ -153,15 +121,83 @@
 
 
 
-#pragma mark - UIScrollViewDelegate
+#pragma mark - ImageViews Adjust
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
-
+- (void)redrawScrollView {
+    self.mainScrollView.frame = self.view.frame;
+    NSInteger imageCount = self.imageViews.count;
+    CGFloat width = CGRectGetWidth(self.view.frame);
+    CGFloat height = CGRectGetHeight(self.view.frame);
     
+    self.currentScrollViewHeight = height;
+    self.currentScrollViewWidth = width;
     
+    self.mainScrollView.contentSize = CGSizeMake(width * imageCount, height );
+    for (int i = 0; i < imageCount; i++) {
+        [self resizeImageView:i];
+    }
+    self.mainScrollView.contentOffset = CGPointMake(self.currentPage * self.currentScrollViewWidth, 0);
 }
 
+
+- (void)resizeImageView:(NSInteger)index {
+    
+    UIScrollView *sc = self.scrollViews[index];
+    sc.frame = CGRectMake(self.currentScrollViewWidth * index, 0, self.currentScrollViewWidth, self.currentScrollViewHeight);
+    UIImageView *iv = self.imageViews[index];
+    iv.transform = CGAffineTransformIdentity;
+    
+    float scaleX = iv.image.size.width/self.currentScrollViewWidth;
+    
+    if ([self imageViewShouldSetToTop:iv.image]) {
+        //Setup tall image to Viewre.
+        iv.frame = CGRectMake(0, 0, self.currentScrollViewWidth, iv.image.size.height / scaleX);
+        sc.contentSize = CGSizeMake( self.currentScrollViewWidth , iv.image.size.height / scaleX);
+        
+    } else if ([self imageViewShouldSetToCenter:iv.image]){
+        iv.frame = CGRectMake(0, 0, iv.image.size.width, iv.image.size.height );
+        sc.contentSize = CGSizeMake(iv.image.size.width, iv.image.size.height);
+        iv.center = self.mainScrollView.center;
+    } else {
+        float scaleY = iv.image.size.height/self.currentScrollViewHeight;
+        if (scaleX > scaleY) {
+            sc.contentSize = CGSizeMake( iv.image.size.width/scaleX , iv.image.size.height / scaleX);
+            iv.frame = CGRectMake(0, 0, iv.image.size.width/scaleX, iv.image.size.height / scaleX);
+            
+        } else {
+            sc.contentSize = CGSizeMake( iv.image.size.width/scaleY , iv.image.size.height / scaleY);
+            iv.frame = CGRectMake(0, 0, iv.image.size.width/scaleY, iv.image.size.height / scaleY);
+            
+        }
+        iv.center = self.mainScrollView.center;
+    }
+    
+    for (id u in sc.subviews) {
+        if (u != iv) {
+            [u removeFromSuperview];
+        }
+    }
+}
+
+- (BOOL)imageViewShouldSetToTop:(UIImage *)image {
+    if ((image.size.width > self.currentScrollViewWidth * 0.75) &&
+        (image.size.height / image.size.width > self.currentScrollViewHeight/self.currentScrollViewWidth)) {
+        return true;
+    }
+    return false;
+}
+
+- (BOOL)imageViewShouldSetToCenter:(UIImage *)image {
+    if ((image.size.width < self.currentScrollViewWidth) && (image.size.height < self.currentScrollViewHeight)) {
+        return true;
+    }
+    return false;
+}
+
+
+
+
+#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView != self.mainScrollView) {
@@ -169,7 +205,6 @@
     }
     int page = scrollView.contentOffset.x/self.currentScrollViewWidth;
     if (page == self.currentPage) {
-        //没有翻页
         return;
     }
     
@@ -198,15 +233,15 @@
     
     // center horizontally
     if (imgFrame.size.width <= boundsSize.width)
-      {
+    {
         centerPoint.x = boundsSize.width/2;
-      }
+    }
     
     // center vertically
     if (imgFrame.size.height <= boundsSize.height)
-      {
+    {
         centerPoint.y = boundsSize.height/2;
-      }
+    }
     imgView.center = centerPoint;
 }
 
@@ -217,7 +252,5 @@
     self.tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
     [self.view addGestureRecognizer:self.tapGesture];
 }
-
-
 
 @end

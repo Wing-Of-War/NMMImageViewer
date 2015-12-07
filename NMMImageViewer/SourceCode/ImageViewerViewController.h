@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef NS_ENUM(NSUInteger, TestType) {
+    TestType_Tall,
+    TestType_Small,
+};
+
 @interface ImageViewerViewController : UIViewController
 
-+ (void)showInViewController:(UIViewController *)viewCon;
++ (void)showInViewController:(UIViewController *)viewCon testType:(TestType)type;
 
 @end
