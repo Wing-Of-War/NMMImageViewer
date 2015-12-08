@@ -44,14 +44,23 @@
 - (void)setupTestData {
     NSMutableArray *array = [NSMutableArray array];
     
-    if (self.type == TestType_Tall) {
-        for (int i = 0 ; i < 3 ; i++) {
-            [array addObject:[NSString stringWithFormat:@"TallImage%d.jpg", i+1]];
-        }
-    } else {
-        for (int i = 0 ; i < 3 ; i++) {
-            [array addObject:[NSString stringWithFormat:@"SmallImage%d.png", i+1]];
-        }
+    
+    switch (self.type) {
+        case TestType_Tall:
+            for (int i = 0 ; i < 3 ; i++) {
+                [array addObject:[NSString stringWithFormat:@"TallImage%d.jpg", i+1]];
+            }
+            break;
+            case TestType_Small:
+            for (int i = 0 ; i < 3 ; i++) {
+                [array addObject:[NSString stringWithFormat:@"SmallImage%d.png", i+1]];
+            }
+            break;
+            case TestType_Normal:
+            for (int i = 0 ; i < 3 ; i++) {
+                [array addObject:[NSString stringWithFormat:@"ppt%d.JPG", i+1]];
+            }
+            break;
     }
     self.imageLinks = [NSArray arrayWithArray:array];
 }

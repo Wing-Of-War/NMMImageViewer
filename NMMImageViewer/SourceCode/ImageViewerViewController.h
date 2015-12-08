@@ -12,6 +12,7 @@
 typedef NS_ENUM(NSUInteger, TestType) {
     TestType_Tall,
     TestType_Small,
+    TestType_Normal
 };
 
 @interface ImageViewerViewController : UIViewController

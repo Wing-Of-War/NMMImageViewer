@@ -20,7 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.testList = @[@"Long image load test", @"Small image load test"];
+    self.testList = @[@"Long image load test",
+                      @"Small image load test",
+                      @"Normal image load test"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     [self.tableView reloadData];
     // Do any additional setup after loading the view, typically from a nib.
@@ -54,8 +56,10 @@
     
     if (indexPath.row == 0) {
         [ImageViewerViewController showInViewController:self testType:TestType_Tall];
-    } else {
+    } else if (indexPath.row == 1){
         [ImageViewerViewController showInViewController:self testType:TestType_Small];
+    } else {
+        [ImageViewerViewController showInViewController:self testType:TestType_Normal];
     }
 }
 @end

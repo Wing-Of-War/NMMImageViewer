@@ -7,22 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28C1F13E1C16E03B00FCE06D /* ppt1.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 28C1F13B1C16E03B00FCE06D /* ppt1.JPG */; };
+		28C1F13F1C16E03B00FCE06D /* ppt2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 28C1F13C1C16E03B00FCE06D /* ppt2.JPG */; };
+		28C1F1401C16E03B00FCE06D /* ppt3.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 28C1F13D1C16E03B00FCE06D /* ppt3.JPG */; };
 		4EA287931C15E1AF006A006D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA287921C15E1AF006A006D /* main.m */; };
 		4EA287961C15E1AF006A006D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA287951C15E1AF006A006D /* AppDelegate.m */; };
 		4EA287991C15E1AF006A006D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA287981C15E1AF006A006D /* ViewController.m */; };
 		4EA2879C1C15E1AF006A006D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2879A1C15E1AF006A006D /* Main.storyboard */; };
 		4EA2879E1C15E1AF006A006D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2879D1C15E1AF006A006D /* Assets.xcassets */; };
 		4EA287A11C15E1AF006A006D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2879F1C15E1AF006A006D /* LaunchScreen.storyboard */; };
-		4EA287AE1C15E220006A006D /* TallImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AB1C15E220006A006D /* TallImage1.jpg */; settings = {ASSET_TAGS = (); }; };
-		4EA287AF1C15E220006A006D /* TallImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AC1C15E220006A006D /* TallImage2.jpg */; settings = {ASSET_TAGS = (); }; };
-		4EA287B01C15E220006A006D /* TallImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AD1C15E220006A006D /* TallImage3.jpg */; settings = {ASSET_TAGS = (); }; };
-		4EA287B41C15E268006A006D /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA287B31C15E268006A006D /* ImageViewerViewController.m */; settings = {ASSET_TAGS = (); }; };
-		4EA287B91C15EBF8006A006D /* SmallImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B61C15EBF8006A006D /* SmallImage1.png */; settings = {ASSET_TAGS = (); }; };
-		4EA287BA1C15EBF8006A006D /* SmallImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B71C15EBF8006A006D /* SmallImage2.png */; settings = {ASSET_TAGS = (); }; };
-		4EA287BB1C15EBF8006A006D /* SmallImage3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B81C15EBF8006A006D /* SmallImage3.png */; settings = {ASSET_TAGS = (); }; };
+		4EA287AE1C15E220006A006D /* TallImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AB1C15E220006A006D /* TallImage1.jpg */; };
+		4EA287AF1C15E220006A006D /* TallImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AC1C15E220006A006D /* TallImage2.jpg */; };
+		4EA287B01C15E220006A006D /* TallImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287AD1C15E220006A006D /* TallImage3.jpg */; };
+		4EA287B41C15E268006A006D /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA287B31C15E268006A006D /* ImageViewerViewController.m */; };
+		4EA287B91C15EBF8006A006D /* SmallImage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B61C15EBF8006A006D /* SmallImage1.png */; };
+		4EA287BA1C15EBF8006A006D /* SmallImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B71C15EBF8006A006D /* SmallImage2.png */; };
+		4EA287BB1C15EBF8006A006D /* SmallImage3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EA287B81C15EBF8006A006D /* SmallImage3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28C1F13B1C16E03B00FCE06D /* ppt1.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ppt1.JPG; sourceTree = "<group>"; };
+		28C1F13C1C16E03B00FCE06D /* ppt2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ppt2.JPG; sourceTree = "<group>"; };
+		28C1F13D1C16E03B00FCE06D /* ppt3.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ppt3.JPG; sourceTree = "<group>"; };
 		4EA2878E1C15E1AF006A006D /* NMMImageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NMMImageViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA287921C15E1AF006A006D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4EA287941C15E1AF006A006D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,6 +60,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28C1F13A1C16E03B00FCE06D /* Normal */ = {
+			isa = PBXGroup;
+			children = (
+				28C1F13B1C16E03B00FCE06D /* ppt1.JPG */,
+				28C1F13C1C16E03B00FCE06D /* ppt2.JPG */,
+				28C1F13D1C16E03B00FCE06D /* ppt3.JPG */,
+			);
+			path = Normal;
+			sourceTree = "<group>";
+		};
 		4EA287851C15E1AF006A006D = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +115,7 @@
 		4EA287A91C15E220006A006D /* TestImage */ = {
 			isa = PBXGroup;
 			children = (
+				28C1F13A1C16E03B00FCE06D /* Normal */,
 				4EA287B51C15EBF8006A006D /* Small */,
 				4EA287AA1C15E220006A006D /* Tall */,
 			);
@@ -193,12 +210,15 @@
 			files = (
 				4EA287BA1C15EBF8006A006D /* SmallImage2.png in Resources */,
 				4EA287BB1C15EBF8006A006D /* SmallImage3.png in Resources */,
+				28C1F13F1C16E03B00FCE06D /* ppt2.JPG in Resources */,
 				4EA287B91C15EBF8006A006D /* SmallImage1.png in Resources */,
 				4EA287B01C15E220006A006D /* TallImage3.jpg in Resources */,
 				4EA287A11C15E1AF006A006D /* LaunchScreen.storyboard in Resources */,
+				28C1F1401C16E03B00FCE06D /* ppt3.JPG in Resources */,
 				4EA287AF1C15E220006A006D /* TallImage2.jpg in Resources */,
 				4EA2879E1C15E1AF006A006D /* Assets.xcassets in Resources */,
 				4EA287AE1C15E220006A006D /* TallImage1.jpg in Resources */,
+				28C1F13E1C16E03B00FCE06D /* ppt1.JPG in Resources */,
 				4EA2879C1C15E1AF006A006D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
