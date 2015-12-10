@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) UIGestureRecognizer *tapGesture;
+@property (nonatomic, strong) UIGestureRecognizer *doubleTapGesture;
 
 
 @property (nonatomic, strong) NSArray *imageLinks;
@@ -33,11 +34,10 @@
 
 
 + (void)showInViewController:(UIViewController *)viewCon testType:(TestType)type{
-    ImageViewerViewController *viewrVC = [[ImageViewerViewController alloc]init];
-    viewrVC.type = type;
-    [viewCon presentViewController:viewrVC animated:YES completion:^{
-        
-    }];
+    ImageViewerViewController *viewer = [[ImageViewerViewController alloc]init];
+    viewer.type = type;
+    viewer.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [viewCon presentViewController:viewer animated:NO completion:nil];
 }
 
 
@@ -109,7 +109,7 @@
 
 
 - (void)dismiss {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -188,6 +188,38 @@
     }
 }
 
+- (void)doubleTap {
+    if ([self needExpand]) {
+        UIImageView *iv =  self.imageViews[self.currentPage];
+        iv.frame = self.view.bounds;
+        iv.center = self.view.center;
+        return;
+    }
+    if ([self needResize]) {
+        [self resizeImageView:self.currentPage];
+        return;
+    }
+}
+
+- (BOOL)needExpand {
+    UIImageView *iv =  self.imageViews[self.currentPage];
+    if (iv.frame.size.height >= self.currentScrollViewHeight || iv.frame.size.width >= self.currentScrollViewWidth) {
+        return false;
+    }
+    return true;
+}
+- (BOOL)needResize {
+    UIImageView *image = self.imageViews[self.currentPage];
+    if (image.frame.size.width > image.image.size.width && image.frame.size.height > image.image.size.height) {
+        return true;
+    }
+    UIScrollView *sc = self.scrollViews[self.currentPage];
+    if (sc.zoomScale != 1.0) {
+        return true;
+    }
+    return false;
+}
+
 - (BOOL)imageViewShouldSetToTop:(UIImage *)image {
     if ((image.size.width > self.currentScrollViewWidth * 0.75) &&
         (image.size.height / image.size.width > self.currentScrollViewHeight/self.currentScrollViewWidth)) {
@@ -231,7 +263,6 @@
 
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    
     NSInteger index = [self.scrollViews indexOfObject:scrollView];
     UIImageView *imgView = self.imageViews[index];
     CGSize boundsSize = scrollView.bounds.size;
@@ -255,11 +286,17 @@
 }
 
 
+
 #pragma mark - Gesture
 
 - (void)setupGestures {
     self.tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
     [self.view addGestureRecognizer:self.tapGesture];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTap)];
+    [self.view addGestureRecognizer:doubleTap];
+    doubleTap.numberOfTapsRequired = 2;
+    self.doubleTapGesture = doubleTap;
+    [self.tapGesture requireGestureRecognizerToFail:self.doubleTapGesture];
 }
 
 @end
